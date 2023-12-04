@@ -1,37 +1,26 @@
-import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { AsyncPipe } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { map, Observable, of, switchMap } from 'rxjs';
+import { MatIconModule } from '@angular/material/icon';
+import { RouterLink } from '@angular/router';
+import { map, Observable, of } from 'rxjs';
+import { AbstractDayComponent } from '../../templates/abstract-day.component';
 
 @Component({
   selector: 'app-day1',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, HttpClientModule],
-  templateUrl: './day1.component.html',
+  imports: [AsyncPipe, HttpClientModule, MatIconModule, RouterLink],
+  templateUrl: '../../templates/day.template.html',
 })
-export class Day1Component {
-  constructor(private httpClient: HttpClient) {
+export class Day1Component extends AbstractDayComponent{
+
+  constructor() {
+    super();
+    this.dayNumber.set(1);
+    this.firstTaskSolved.set(true);
+    this.secondTaskSolved.set(true);
   }
-
-  private taskOneTestDataSource$ = this.httpClient.get('./assets/day1/test1.txt', {responseType: 'text'});
-  private taskTwoTestDataSource$ = this.httpClient.get('./assets/day1/test2.txt', {responseType: 'text'});
-  private finalDataSource$ = this.httpClient.get('./assets/day1/final.txt', {responseType: 'text'});
-
-  protected firstTaskTestDataSolution$ = this.taskOneTestDataSource$.pipe(
-    switchMap(data => this.firstTask(data))
-  );
-  protected firstTaskFinalDataSolution$ = this.finalDataSource$.pipe(
-    switchMap(data => this.firstTask(data))
-  );
-  protected secondTaskTestDataSolution$ = this.taskTwoTestDataSource$.pipe(
-    switchMap(data => this.secondTask(data))
-  );
-  protected secondTaskFinalDataSolution$ = this.finalDataSource$.pipe(
-    switchMap(data => this.secondTask(data))
-  );
-
-  private firstTask(data: string): Observable<number> {
+  protected firstTask(data: string): Observable<number> {
     return of(data).pipe(
       map(data => data?.split('\r\n')),
       map(lines => lines.filter(line => line !== '')),
@@ -46,7 +35,7 @@ export class Day1Component {
   }
 
 
-  private secondTask(data: string): Observable<number> {
+  protected secondTask(data: string): Observable<number> {
     return of(data).pipe(
       map(data => data?.split('\r\n')),
       map(lines => lines.filter(line => line !== '')),

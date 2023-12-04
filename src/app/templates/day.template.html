@@ -1,0 +1,38 @@
+<article>
+  <div class="aoc__header">
+    <h2>Day {{ dayNumber() }}</h2>
+    <a routerLink="/"
+       class="aoc__back-link">
+      <mat-icon>home</mat-icon>
+      Back
+    </a>
+  </div>
+  <div class="aoc__tasks">
+    <div class="aoc__task-group" [class.aoc__task-group--solved]="firstTaskSolved()">
+      <h3>
+        Task 1
+        @if(firstTaskSolved()) {
+        <mat-icon>star</mat-icon>
+        }
+        @else {
+        <mat-icon>star_border</mat-icon>
+        }
+      </h3>
+      <p>Test data: {{ firstTaskTestDataSolution$ | async }}</p>
+      <p>Final data: {{ firstTaskFinalDataSolution$ | async }}</p>
+    </div>
+    <div class="aoc__task-group" [class.aoc__task-group--solved]="secondTaskSolved()">
+      <h3>
+        Task 2
+        @if(secondTaskSolved()) {
+          <mat-icon>star</mat-icon>
+        }
+        @else {
+          <mat-icon>star_border</mat-icon>
+        }
+      </h3>
+      <p>Test data: {{ secondTaskTestDataSolution$ | async }}</p>
+      <p>Final data: {{ secondTaskFinalDataSolution$ | async }}</p>
+    </div>
+  </div>
+</article>

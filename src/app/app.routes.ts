@@ -3,8 +3,7 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'day/4',
-    pathMatch: 'full'
+    loadComponent: () => import('./components/calendar/calendar.component').then(m => m.CalendarComponent)
   },
   {
     title: 'Advent of Code - Day 1',

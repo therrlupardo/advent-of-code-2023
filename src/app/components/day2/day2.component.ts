@@ -1,40 +1,26 @@
 import { AsyncPipe } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { map, Observable, of, switchMap } from 'rxjs';
+import { MatIconModule } from '@angular/material/icon';
+import { RouterLink } from '@angular/router';
+import { map, Observable, of } from 'rxjs';
+import { AbstractDayComponent } from '../../templates/abstract-day.component';
 
 @Component({
   selector: 'app-day2',
   standalone: true,
-  imports: [
-    AsyncPipe,
-    HttpClientModule
-  ],
-  templateUrl: './day2.component.html',
-  styleUrl: './day2.component.scss'
+  imports: [AsyncPipe, HttpClientModule, MatIconModule, RouterLink],
+  templateUrl: '../../templates/day.template.html',
 })
-export class Day2Component {
-  constructor(private httpClient: HttpClient) {
+export class Day2Component extends AbstractDayComponent {
+  constructor() {
+    super();
+    this.dayNumber.set(2);
+    this.firstTaskSolved.set(true);
+    this.secondTaskSolved.set(true);
   }
 
-  private taskOneTestDataSource$ = this.httpClient.get('./assets/day2/test1.txt', {responseType: 'text'});
-  private taskTwoTestDataSource$ = this.httpClient.get('./assets/day2/test2.txt', {responseType: 'text'});
-  private finalDataSource$ = this.httpClient.get('./assets/day2/final.txt', {responseType: 'text'});
-
-  protected firstTaskTestDataSolution$ = this.taskOneTestDataSource$.pipe(
-    switchMap(data => this.firstTask(data))
-  );
-  protected firstTaskFinalDataSolution$ = this.finalDataSource$.pipe(
-    switchMap(data => this.firstTask(data))
-  );
-  protected secondTaskTestDataSolution$ = this.taskTwoTestDataSource$.pipe(
-    switchMap(data => this.secondTask(data))
-  );
-  protected secondTaskFinalDataSolution$ = this.finalDataSource$.pipe(
-    switchMap(data => this.secondTask(data))
-  );
-
-  private firstTask(data: string): Observable<number> {
+  protected firstTask(data: string): Observable<number> {
     return this.prepareData(data).pipe(
       map(lines => lines.map(line => {
           const enoughRed = line.results.red <= 12;
@@ -43,13 +29,14 @@ export class Day2Component {
 
           return {id: line.id, isPossible: enoughRed && enoughBlue && enoughGreen};
         })
-        .filter(line => line.isPossible)
-        .map(line => line.id)
+          .filter(line => line.isPossible)
+          .map(line => line.id)
       ),
       map(lines => lines.reduce((value: number, sum: number) => sum += value, 0))
     );
   }
-  private secondTask(data: string): Observable<number> {
+
+  protected secondTask(data: string): Observable<number> {
     return this.prepareData(data).pipe(
       map(lines => lines
         .map(line => line.results.green * line.results.red * line.results.blue)
@@ -57,7 +44,7 @@ export class Day2Component {
     );
   }
 
-  private prepareData(data: string): Observable<{id: number, results: ColorObject}[]> {
+  private prepareData(data: string): Observable<{ id: number, results: ColorObject }[]> {
     return of(data).pipe(
       map(data => data?.split('\r\n')),
       map(lines => lines.filter(line => line !== '')),

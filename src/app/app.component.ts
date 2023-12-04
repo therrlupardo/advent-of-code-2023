@@ -7,7 +7,8 @@ import { RouterOutlet } from '@angular/router';
   imports: [
     RouterOutlet
   ],
-  template: `<header>Advent of Code 2023</header><router-outlet></router-outlet>`,
+  templateUrl: './app.component.html',
 })
 export class AppComponent {
+
 }
