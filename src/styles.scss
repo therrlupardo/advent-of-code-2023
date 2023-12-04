@@ -97,12 +97,12 @@ article {
     }
 
     &--not-completed {
-      background-color: gray;
-      box-shadow: 0 0 2px gray, 0 0 5px gray;
-      border: 1px solid gray;
+      background-color: #545454;
+      box-shadow: 0 0 2px #545454, 0 0 5px #545454;
+      border: 1px solid #545454;
 
       &:hover, &:focus {
-        background: gray !important;
+        background: #545454 !important;
         cursor: not-allowed;
       }
 

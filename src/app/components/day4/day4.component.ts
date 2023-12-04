@@ -1,6 +1,6 @@
 import { AsyncPipe } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { map, Observable, of, switchMap, tap } from 'rxjs';
@@ -11,6 +11,7 @@ import { AbstractDayComponent } from '../../templates/abstract-day.component';
   standalone: true,
   imports: [AsyncPipe, HttpClientModule, MatIconModule, RouterLink],
   templateUrl: '../../templates/day.template.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Day4Component extends AbstractDayComponent {
   constructor() {

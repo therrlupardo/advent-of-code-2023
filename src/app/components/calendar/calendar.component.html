@@ -1,0 +1,24 @@
+<main class="app__main">
+  @for (day of days;track day) {
+    @if (!day.notCompleted) {
+      <a routerLink="day/{{day.index}}"
+         class="app__section"
+      >
+        <span>Day {{ day.index }}</span>
+        <div>
+          <mat-icon>star</mat-icon>
+          <mat-icon>star</mat-icon>
+        </div>
+      </a>
+    } @else {
+      <div class="app__section app__section--not-completed"
+      >
+        <span>Day {{ day.index }}</span>
+        <div>
+          <mat-icon>star_border</mat-icon>
+          <mat-icon>star_border</mat-icon>
+        </div>
+      </div>
+    }
+  }
+</main>
