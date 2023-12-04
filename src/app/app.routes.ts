@@ -3,7 +3,7 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'day/3',
+    redirectTo: 'day/4',
     pathMatch: 'full'
   },
   {
@@ -20,5 +20,10 @@ export const routes: Routes = [
     title: 'Advent of Code - Day 3',
     path: 'day/3',
     loadComponent: () => import('./components/day3/day3.component').then(m => m.Day3Component)
+  },
+  {
+    title: 'Advent of Code - Day 4',
+    path: 'day/4',
+    loadComponent: () => import('./components/day4/day4.component').then(m => m.Day4Component)
   }
 ];
