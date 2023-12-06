@@ -24,5 +24,10 @@ export const routes: Routes = [
     title: 'Advent of Code - Day 4',
     path: 'day/4',
     loadComponent: () => import('./components/day4/day4.component').then(m => m.Day4Component)
+  },
+  {
+    title: 'Advent of Code - Day 5',
+    path: 'day/5',
+    loadComponent: () => import('./components/day5/day5.component').then(m => m.Day5Component)
   }
 ];
