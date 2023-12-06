@@ -23,6 +23,7 @@ export class Day5Component extends AbstractDayComponent {
     super();
     this.dayNumber.set(5);
     this.firstTaskSolved.set(true);
+    this.secondTaskSolved.set(true);
   }
 
   protected firstTask(data: string): Observable<number> {
@@ -115,7 +116,6 @@ export class Day5Component extends AbstractDayComponent {
           for (let i = 0; i < seedData.numberOfIndices; i++) {
             const locationForSeed = this.getLocationForSeed(maps, seedData.startingSeed + i);
             currentLocation = Math.min(currentLocation, locationForSeed);
-            console.log(`Location for seed ${seedData.startingSeed + i}`, locationForSeed);
           }
           console.log('Calculated minLocation for', seedData, currentLocation);
           console.log('New minLocation', Math.min(minLocation, currentLocation));
